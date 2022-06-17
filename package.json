@@ -1,0 +1,14 @@
+{
+  "name": "firstapp",
+  "version": "1.0.0",
+  "description": "First Assignement @ R&D",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd api && npm run serve\" \"cd ui && npm run serve\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  }
+}
