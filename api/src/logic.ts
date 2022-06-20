@@ -1,9 +1,10 @@
 import axios from "axios";
+import { API } from "./config";
 import { productData } from "./interfaces";
 
 export function fetchProducts() {
   return axios
-    .get("https://iq.dev.inrix.com/api/products")
+    .get(`${API}/products`)
     .then((result) => {
       let products = result.data.tiles.slice(1);
       let trProducts: productData[] = [];

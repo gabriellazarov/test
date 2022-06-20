@@ -1,10 +1,9 @@
 import express, { Request, Response, NextFunction } from "express";
-import axios from "axios";
 import { fetchProducts } from "./logic";
+import { PORT } from "./config";
 
 const app = express();
 const cors = require("cors");
-const port = 8080;
 
 app.use(cors());
 
@@ -21,6 +20,6 @@ app.get("/products", (req: Request, res: Response) => {
     .catch((e) => console.log(e));
 });
 
-app.listen(port, () => {
-  console.log(`App is running on port: ${port}.`);
+app.listen(PORT, () => {
+  console.log(`App is running on port: ${PORT}.`);
 });
