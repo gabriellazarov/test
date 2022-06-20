@@ -22,7 +22,7 @@ export default {
 
   created() {
     axios
-      .get("http://localhost:8080/products")
+      .get("/products")
       .then((result) => {
         console.log(result.data);
         this.products = result.data;
