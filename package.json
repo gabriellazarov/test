@@ -4,7 +4,8 @@
   "description": "First Assignement @ R&D",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd api && npm run serve\" \"cd ui && npm run serve\""
+    "dev": "concurrently \"cd api && npm run serve\" \"cd ui && npm run serve\"",
+    "install": "concurrently \"cd api && npm i\" \"cd ui && npm i\""
   },
   "author": "",
   "license": "ISC",
