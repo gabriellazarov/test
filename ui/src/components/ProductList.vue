@@ -24,7 +24,6 @@ export default {
     axios
       .get("/products")
       .then((result) => {
-        console.log(result.data);
         this.products = result.data;
       })
       .catch((err) => console.log(err));

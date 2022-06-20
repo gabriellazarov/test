@@ -13,6 +13,7 @@
                 name="login"
                 label="Login"
                 type="text"
+                v-model="username"
               ></v-text-field>
               <v-text-field
                 id="password"
@@ -20,6 +21,7 @@
                 name="password"
                 label="Password"
                 type="password"
+                v-model="password"
               ></v-text-field>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -34,10 +36,25 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
+  data() {
+    return {
+      username: "",
+      password: "",
+    };
+  },
   methods: {
     login() {
-      console.log("here");
+      axios
+        .post("/login", {
+          username: this.username,
+          password: this.password,
+        })
+        .then((response) => {
+          console.log(response.data);
+        });
     },
   },
 };

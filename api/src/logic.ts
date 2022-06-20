@@ -1,13 +1,13 @@
 import axios from "axios";
 import { API } from "./config";
-import { productData } from "./interfaces";
+import { Credentials, ProductData } from "./interfaces";
 
 export function fetchProducts() {
   return axios
     .get(`${API}/products`)
     .then((result) => {
       let products = result.data.tiles.slice(1);
-      let trProducts: productData[] = [];
+      let trProducts: ProductData[] = [];
       for (let product of products) {
         trProducts.push({
           id: product.id,
@@ -20,6 +20,16 @@ export function fetchProducts() {
         });
       }
       return trProducts;
+    })
+    .catch((e) => console.log(e));
+}
+
+export function login(cred: Credentials) {
+  return axios
+    .post(`${API}/signin`, cred)
+    .then((result) => {
+      console.log(result.data);
+      return result.data.accessToken.token;
     })
     .catch((e) => console.log(e));
 }

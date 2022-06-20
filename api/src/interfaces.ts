@@ -1,4 +1,4 @@
-export interface productData {
+export interface ProductData {
   id: String;
   appId: String;
   inSubscription: Boolean;
@@ -6,4 +6,9 @@ export interface productData {
   subtitle: String;
   description: String;
   subscription: String;
+}
+
+export interface Credentials {
+  username: String;
+  password: String;
 }
