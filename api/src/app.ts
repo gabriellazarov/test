@@ -22,7 +22,6 @@ app.get("/products", (req: Request, res: Response) => {
 });
 
 app.post("/login", (req: Request, res: Response) => {
-  console.log(JSON.stringify(req.body));
   login(req.body)
     .then((result) => {
       res.status(200).json(result);

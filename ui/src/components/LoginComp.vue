@@ -7,7 +7,7 @@
             <v-toolbar-title>Login form</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
-            <v-form @submit.prevent="login">
+            <v-form @submit.prevent="onSubmit">
               <v-text-field
                 prepend-icon="person"
                 name="login"
@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   data() {
     return {
@@ -46,14 +44,15 @@ export default {
     };
   },
   methods: {
-    login() {
-      axios
-        .post("/login", {
+    onSubmit() {
+      if (this.username === "" || this.password === "") return;
+      this.$store
+        .dispatch("authenticateUser", {
           username: this.username,
           password: this.password,
         })
-        .then((response) => {
-          console.log(response.data);
+        .then(() => {
+          this.$router.push("/products");
         });
     },
   },
