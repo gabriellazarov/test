@@ -26,7 +26,6 @@ const store = new Vuex.Store({
           localStorage.setItem("expiry", result.data.expiry);
         })
         .catch((err) => {
-          console.log(err);
           throw new Error(err.response.data);
         });
     },

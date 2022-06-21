@@ -4,7 +4,7 @@
       <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
           <v-alert
-          style="margin-bottom: -56px"
+            style="margin-bottom: -56px"
             color="red"
             elevation="4"
             type="error"
@@ -19,7 +19,7 @@
             </v-toolbar>
 
             <v-card-text>
-              <v-form @submit.prevent="onSubmit">
+              <v-form ref="form" @submit.prevent="onSubmit">
                 <v-text-field
                   prepend-icon="mail"
                   name="email"
@@ -39,7 +39,14 @@
                 ></v-text-field>
                 <v-card-actions>
                   <v-spacer></v-spacer>
-                  <v-btn color="primary" type="submit">Login</v-btn>
+                  <v-btn color="primary" type="submit" v-if="!isLoading"
+                    >Login</v-btn
+                  >
+                  <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    v-else
+                  ></v-progress-circular>
                 </v-card-actions>
               </v-form>
             </v-card-text>
@@ -57,6 +64,7 @@ export default {
       username: "",
       password: "",
       error: "",
+      isLoading: false,
       rules: {
         required: (value) => !!value || "Required.",
         email: (value) => {
@@ -69,7 +77,9 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.$refs.form.validate();
       if (this.username === "" || this.password === "") return;
+      this.isLoading = true;
       this.$store
         .dispatch("authenticateUser", {
           username: this.username,
@@ -79,7 +89,7 @@ export default {
           this.$router.push("/products");
         })
         .catch((err) => {
-          console.log(err.message);
+          this.isLoading = false;
           this.error = err.message;
           setTimeout(() => {
             this.error = "";
