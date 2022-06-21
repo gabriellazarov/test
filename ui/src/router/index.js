@@ -14,13 +14,13 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (!store.getters.isAuthenticated) {
         console.log(store.getters.isAuthenticated);
-        return router.push("/login");
+        return router.push("/auth");
       }
       return next();
     },
   },
   {
-    path: "/login",
+    path: "/auth",
     component: LoginComp,
   },
 ];
