@@ -34,5 +34,13 @@ export function login(cred: Credentials) {
         expiry: new Date(result.data.accessToken.expiry).getTime(),
       };
     })
-    .catch((e) => console.log(e));
+    .catch((err) => {
+      const error = JSON.stringify({
+        status: err.response.status,
+        message: err.response.data.message
+          ? err.response.data.message
+          : err.response.data,
+      });
+      throw new Error(error);
+    });
 }

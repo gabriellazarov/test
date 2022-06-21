@@ -22,7 +22,11 @@ app.post("/login", (req: Request, res: Response) => {
     .then((result) => {
       res.status(200).json(result);
     })
-    .catch((e) => console.log(e));
+    .catch((err) => {
+      const error = JSON.parse(err.message);
+      console.log(error);
+      res.status(error.status).json(error.message);
+    });
 });
 
 app.get("/healthcheck", (req: Request, res: Response) => {

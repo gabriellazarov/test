@@ -25,7 +25,10 @@ const store = new Vuex.Store({
           localStorage.setItem("token", result.data.token);
           localStorage.setItem("expiry", result.data.expiry);
         })
-        .catch((e) => console.log(e));
+        .catch((err) => {
+          console.log(err);
+          throw new Error(err.response.data);
+        });
     },
     authCheck(vuexContext) {
       if (localStorage.getItem("expiry")) {
