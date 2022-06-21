@@ -20,7 +20,6 @@ export default {
   data() {
     return {
       appTitle: "R&D Assignement",
-      sidebar: false,
       menuItems: [
         { title: "Products", path: "/products", icon: "inventory" },
         { title: "Sign In", path: "/auth", icon: "lock_open" },

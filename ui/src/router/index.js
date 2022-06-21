@@ -11,13 +11,6 @@ const routes = [
   {
     path: "/products",
     component: ProductList,
-    beforeEnter: (to, from, next) => {
-      if (!store.getters.isAuthenticated) {
-        console.log(store.getters.isAuthenticated);
-        return router.push("/auth");
-      }
-      return next();
-    },
   },
   {
     path: "/auth",
@@ -26,5 +19,19 @@ const routes = [
 ];
 
 const router = new VueRouter({ mode: "history", routes: routes });
+
+router.beforeEach((to, from, next) => {
+  //user can't auth if already authenticated
+  if (store.getters.isAuthenticated) {
+    if (to.path === "/auth") return;
+    return next();
+  }
+  //blocking everything apart from auth for unauth users
+  else {
+    if (from.path === "/auth") return;
+    if (to.path === "/auth") return next();
+    return router.replace("/auth");
+  }
+});
 
 export default router;
