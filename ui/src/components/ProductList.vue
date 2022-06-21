@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul class="container">
     <li v-for="product in products" :key="product.id">
       <ProductTile :product="product" />
     </li>
@@ -34,6 +34,13 @@ export default {
 <style>
 ul {
   list-style: none;
-  margin: 15px;
+  margin: 25px;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+li {
+  flex: 50%;
+  margin-bottom: 32px;
 }
 </style>
