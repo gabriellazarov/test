@@ -10,6 +10,10 @@
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
+        <v-btn text to="/auth" @click="logout">
+          <v-icon left dark>lock_open</v-icon>
+          {{ this.$store.getters.isAuthenticated ? "Log Out" : "Sign In" }}
+        </v-btn>
       </v-toolbar-items>
     </v-app-bar>
   </div>
@@ -20,11 +24,16 @@ export default {
   data() {
     return {
       appTitle: "R&D Assignement",
-      menuItems: [
-        { title: "Products", path: "/products", icon: "inventory" },
-        { title: "Sign In", path: "/auth", icon: "lock_open" },
-      ],
+      menuItems: [{ title: "Products", path: "/products", icon: "inventory" }],
     };
+  },
+  methods: {
+    logout() {
+      if (this.$store.getters.isAuthenticated) {
+        this.$store.dispatch("logout");
+        this.$router.push("/auth");
+      }
+    },
   },
 };
 </script>
