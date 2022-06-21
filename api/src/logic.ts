@@ -25,7 +25,6 @@ export function fetchProducts() {
             subscription: product.subscription,
           });
         }
-        console.log(trProducts.length);
         return trProducts;
       })
       .catch((e) => console.log(e))
@@ -37,10 +36,7 @@ export function login(cred: Credentials) {
     .post(`${API}/signin`, cred)
     .then((result) => {
       console.log(result.data);
-      return {
-        token: result.data.accessToken.token,
-        expiry: new Date(result.data.accessToken.expiry).getTime(),
-      };
+      return result.data;
     })
     .catch((err) => {
       const error = JSON.stringify({

@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import ProductList from "../components/ProductList";
 import LoginComp from "../components/LoginComp";
+import ProfilePage from "../components/ProfilePage";
 import store from "@/store";
 
 Vue.use(VueRouter);
@@ -15,6 +16,10 @@ const routes = [
   {
     path: "/auth",
     component: LoginComp,
+  },
+  {
+    path: "/profile",
+    component: ProfilePage,
   },
 ];
 

@@ -24,7 +24,10 @@ export default {
   data() {
     return {
       appTitle: "R&D Assignement",
-      menuItems: [{ title: "Products", path: "/products", icon: "inventory" }],
+      menuItems: [
+        { title: "Profile", path: "/profile", icon: "person" },
+        { title: "Products", path: "/products", icon: "inventory" },
+      ],
     };
   },
   methods: {

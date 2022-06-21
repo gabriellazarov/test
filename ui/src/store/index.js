@@ -7,10 +7,14 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     token: null,
+    profile: "",
   },
   mutations: {
     setToken(state, token) {
       state.token = token;
+    },
+    setProfile(state, profile) {
+      state.profile = profile;
     },
     clearToken(state) {
       state.token = null;
@@ -21,9 +25,19 @@ const store = new Vuex.Store({
       return axios
         .post("/login", authData)
         .then((result) => {
-          vuexContext.commit("setToken", result.data.token);
-          localStorage.setItem("token", result.data.token);
-          localStorage.setItem("expiry", result.data.expiry);
+          const user = result.data;
+          //setting token and expiration
+          vuexContext.commit("setToken", user.accessToken.token);
+          localStorage.setItem("token", user.accessToken.token);
+          localStorage.setItem(
+            "expiry",
+            new Date(user.accessToken.expiry).getTime()
+          );
+          //setting user profile info
+          delete user.accessToken;
+          const profile = JSON.stringify(user);
+          vuexContext.commit("setProfile", profile);
+          localStorage.setItem("profile", profile);
         })
         .catch((err) => {
           throw new Error(err.response.data);
@@ -35,23 +49,31 @@ const store = new Vuex.Store({
 
         if (currentTime < localStorage.getItem("expiry")) {
           vuexContext.commit("setToken", localStorage.getItem("token"));
+          vuexContext.commit("setProfile", localStorage.getItem("profile"));
         } else {
-          localStorage.removeItem("token");
-          localStorage.removeItem("expiry");
+          clearStored();
         }
       }
     },
     logout(vuexContext) {
       vuexContext.commit("clearToken");
-      localStorage.removeItem("token");
-      localStorage.removeItem("expiry");
+      clearStored();
     },
   },
   getters: {
     isAuthenticated(state) {
       return !!state.token;
     },
+    getProfile(state) {
+      return state.profile;
+    },
   },
 });
+
+const clearStored = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("expiry");
+  localStorage.removeItem("profile");
+};
 
 export default store;
