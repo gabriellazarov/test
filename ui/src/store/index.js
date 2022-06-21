@@ -21,12 +21,28 @@ const store = new Vuex.Store({
       return axios
         .post("/login", authData)
         .then((result) => {
-          vuexContext.commit("setToken", result.data);
+          vuexContext.commit("setToken", result.data.token);
+          localStorage.setItem("token", result.data.token);
+          localStorage.setItem("expiry", result.data.expiry);
         })
         .catch((e) => console.log(e));
     },
+    authCheck(vuexContext) {
+      if (localStorage.getItem("expiry")) {
+        const currentTime = new Date().getTime();
+
+        if (currentTime < localStorage.getItem("expiry")) {
+          vuexContext.commit("setToken", localStorage.getItem("token"));
+        } else {
+          localStorage.removeItem("token");
+          localStorage.removeItem("expiry");
+        }
+      }
+    },
     logout(vuexContext) {
       vuexContext.commit("clearToken");
+      localStorage.removeItem("token");
+      localStorage.removeItem("expiry");
     },
   },
   getters: {

@@ -29,7 +29,10 @@ export function login(cred: Credentials) {
     .post(`${API}/signin`, cred)
     .then((result) => {
       console.log(result.data);
-      return result.data.accessToken.token;
+      return {
+        token: result.data.accessToken.token,
+        expiry: new Date(result.data.accessToken.expiry).getTime(),
+      };
     })
     .catch((e) => console.log(e));
 }

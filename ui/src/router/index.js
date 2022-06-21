@@ -21,6 +21,8 @@ const routes = [
 const router = new VueRouter({ mode: "history", routes: routes });
 
 router.beforeEach((to, from, next) => {
+  //check if the user has expired
+  store.dispatch("authCheck");
   //user can't auth if already authenticated
   if (store.getters.isAuthenticated) {
     if (to.path === "/auth") return;

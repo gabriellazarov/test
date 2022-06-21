@@ -8,10 +8,6 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
-});
-
 app.get("/products", (req: Request, res: Response) => {
   fetchProducts()
     .then((products) => {
@@ -27,6 +23,10 @@ app.post("/login", (req: Request, res: Response) => {
       res.status(200).json(result);
     })
     .catch((e) => console.log(e));
+});
+
+app.get("/healthcheck", (req: Request, res: Response) => {
+  res.status(200).send("API is running...");
 });
 
 app.listen(PORT, () => {
