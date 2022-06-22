@@ -16,8 +16,10 @@
         Description
       </v-btn>
       <v-btn outlined rounded text @click="alertDetails"> Details </v-btn>
+      <v-btn outlined rounded text @click="alertDetails"> Plans </v-btn>
     </v-card-actions>
   </v-card>
+
 </template>
 
 <script>

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import ProductTile from "./ProductTile.vue";
 
 export default {
@@ -21,12 +20,7 @@ export default {
   },
 
   created() {
-    axios
-      .get("/products")
-      .then((result) => {
-        this.products = result.data;
-      })
-      .catch((err) => console.log(err));
+    this.$store.dispatch("getProducts").then((res) => (this.products = res));
   },
 };
 </script>

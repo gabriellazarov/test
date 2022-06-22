@@ -8,6 +8,7 @@ const store = new Vuex.Store({
   state: {
     token: null,
     profile: "",
+    products: [],
   },
   mutations: {
     setToken(state, token) {
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
     },
     clearToken(state) {
       state.token = null;
+    },
+    setProducts(state, products) {
+      state.products = products;
     },
   },
   actions: {
@@ -61,6 +65,18 @@ const store = new Vuex.Store({
     logout(vuexContext) {
       vuexContext.commit("clearToken");
       clearStored();
+    },
+    getProducts(vuexContext) {
+      if (vuexContext.state.products.length == 0) {
+        return axios
+          .get("/products")
+          .then((result) => {
+            vuexContext.commit("setProducts", result.data);
+            return vuexContext.state.products;
+          })
+          .catch((err) => console.log(err));
+      }
+      return vuexContext.state.products;
     },
   },
   getters: {},
