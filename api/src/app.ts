@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { fetchProducts, login } from "./logic";
+import { fetchPlans, fetchProducts, login } from "./logic";
 import { PORT } from "./config";
 
 const app = express();
@@ -13,6 +13,15 @@ app.get("/products", (req: Request, res: Response) => {
     .then((products) => {
       console.log("fetched products");
       res.status(200).json(products);
+    })
+    .catch((e) => console.log(e));
+});
+
+app.get("/products/:id/plans", (req: Request, res: Response) => {
+  console.log(req.params.id);
+  fetchPlans(req.params.id)
+    .then((result) => {
+      res.status(200).json(result);
     })
     .catch((e) => console.log(e));
 });

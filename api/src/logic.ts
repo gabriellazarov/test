@@ -31,6 +31,23 @@ export function fetchProducts() {
   );
 }
 
+export function fetchPlans(id: String) {
+  return axios
+    .get(`${API}/products/${id}/plans`)
+    .then((result) => {
+      const data = result.data[0][0];
+
+      return {
+        ID: data.id,
+        "Plan Name": data.planName,
+        "Billing Cycle": data.billingCycle,
+        Name: data.name["en-US"],
+        Type: data.type["en-US"],
+        Description: data.description["en-US"],
+      };
+    })
+    .catch((e) => console.log(e));
+}
 export function login(cred: Credentials) {
   return axios
     .post(`${API}/signin`, cred)
