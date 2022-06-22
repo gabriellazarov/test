@@ -18,9 +18,9 @@ app.get("/products", (req: Request, res: Response) => {
 });
 
 app.get("/products/:id/plans", (req: Request, res: Response) => {
-  console.log(req.params.id);
   fetchPlans(req.params.id)
     .then((result) => {
+      console.log(`Plan for product ${req.params.id} fetched`);
       res.status(200).json(result);
     })
     .catch((e) => console.log(e));
@@ -29,6 +29,7 @@ app.get("/products/:id/plans", (req: Request, res: Response) => {
 app.post("/login", (req: Request, res: Response) => {
   login(req.body)
     .then((result) => {
+      console.log(`User ${result.email} authenticated`);
       res.status(200).json(result);
     })
     .catch((err) => {

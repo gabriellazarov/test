@@ -52,7 +52,6 @@ export function login(cred: Credentials) {
   return axios
     .post(`${API}/signin`, cred)
     .then((result) => {
-      console.log(result.data);
       return result.data;
     })
     .catch((err) => {
