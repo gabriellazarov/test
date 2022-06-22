@@ -12,7 +12,7 @@
         </v-btn>
         <v-btn text to="/auth" @click="logout">
           <v-icon left dark>lock_open</v-icon>
-          {{ this.$store.getters.isAuthenticated ? "Log Out" : "Sign In" }}
+          {{ this.$store.state.token ? "Log Out" : "Sign In" }}
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     logout() {
-      if (this.$store.getters.isAuthenticated) {
+      if (this.$store.state.token) {
         this.$store.dispatch("logout");
         this.$router.push("/auth");
       }

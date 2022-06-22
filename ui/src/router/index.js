@@ -27,18 +27,21 @@ const router = new VueRouter({ mode: "history", routes: routes });
 
 router.beforeEach((to, from, next) => {
   //check if the user has expired
-  store.dispatch("authCheck");
-  //user can't auth if already authenticated
-  if (store.getters.isAuthenticated) {
-    if (to.path === "/auth") return;
-    return next();
-  }
-  //blocking everything apart from auth for unauth users
-  else {
-    if (from.path === "/auth") return;
-    if (to.path === "/auth") return next();
-    return router.replace("/auth");
-  }
+  store.dispatch("authCheck").then((res) => {
+    const isAuthenticated = res;
+
+    //user can't auth if already authenticated
+    if (isAuthenticated) {
+      if (to.path === "/auth") return;
+      return next();
+    }
+    //blocking everything apart from auth for unauth users
+    else {
+      if (from.path === "/auth") return;
+      if (to.path === "/auth") return next();
+      return router.replace("/auth");
+    }
+  });
 });
 
 export default router;

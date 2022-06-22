@@ -44,30 +44,27 @@ const store = new Vuex.Store({
         });
     },
     authCheck(vuexContext) {
-      if (localStorage.getItem("expiry")) {
+      if (localStorage.getItem("token")) {
         const currentTime = new Date().getTime();
 
         if (currentTime < localStorage.getItem("expiry")) {
           vuexContext.commit("setToken", localStorage.getItem("token"));
           vuexContext.commit("setProfile", localStorage.getItem("profile"));
+          return true;
         } else {
+          vuexContext.commit("clearToken");
           clearStored();
+          return false;
         }
       }
+      return false;
     },
     logout(vuexContext) {
       vuexContext.commit("clearToken");
       clearStored();
     },
   },
-  getters: {
-    isAuthenticated(state) {
-      return !!state.token;
-    },
-    getProfile(state) {
-      return state.profile;
-    },
-  },
+  getters: {},
 });
 
 const clearStored = () => {
