@@ -9,5 +9,7 @@
     "sourceType": "module"
   },
   "plugins": ["vue"],
-  "rules": {}
+  "rules": {
+    "no-else-return": ["error"]
+  }
 }

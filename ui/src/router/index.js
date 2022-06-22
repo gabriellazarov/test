@@ -36,11 +36,10 @@ router.beforeEach((to, from, next) => {
       return next();
     }
     //blocking everything apart from auth for unauth users
-    else {
-      if (from.path === "/auth") return;
-      if (to.path === "/auth") return next();
-      return router.replace("/auth");
-    }
+
+    if (from.path === "/auth") return;
+    if (to.path === "/auth") return next();
+    return router.replace("/auth");
   });
 });
 

@@ -5,7 +5,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-   state: {
+  state: {
     token: null,
     profile: "",
   },
@@ -51,11 +51,10 @@ const store = new Vuex.Store({
           vuexContext.commit("setToken", localStorage.getItem("token"));
           vuexContext.commit("setProfile", localStorage.getItem("profile"));
           return true;
-        } else {
-          vuexContext.commit("clearToken");
-          clearStored();
-          return false;
         }
+        vuexContext.commit("clearToken");
+        clearStored();
+        return false;
       }
       return false;
     },
