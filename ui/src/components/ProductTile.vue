@@ -92,7 +92,6 @@ export default {
             return;
           }
           this.plans = res.data;
-          console.log(res.data);
         })
         .catch((e) => console.log(e));
     },
