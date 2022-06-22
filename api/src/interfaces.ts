@@ -1,14 +1,14 @@
 export interface ProductData {
-  id: String;
-  appId: String;
-  inSubscription: Boolean;
-  title: String;
-  subtitle: String;
-  description: String;
-  subscription: String;
+  id: string;
+  appId: string;
+  inSubscription: boolean;
+  title: string;
+  subtitle: string;
+  description: string;
+  subscription: string;
 }
 
 export interface Credentials {
-  username: String;
-  password: String;
+  username: string;
+  password: string;
 }

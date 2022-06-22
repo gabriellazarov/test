@@ -12,9 +12,9 @@ export function fetchProducts() {
       },
     }*/
       .then((result) => {
-        let products = result.data.tiles.slice(1);
-        let trProducts: ProductData[] = [];
-        for (let product of products) {
+        const products = result.data.tiles.slice(1);
+        const trProducts: ProductData[] = [];
+        for (const product of products) {
           trProducts.push({
             id: product.id,
             appId: product.appId,
