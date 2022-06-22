@@ -3,7 +3,7 @@ import { fetchProducts, login } from "./logic";
 import { PORT } from "./config";
 
 const app = express();
-const cors = require("cors");
+import cors from "cors";
 
 app.use(cors());
 app.use(express.json());

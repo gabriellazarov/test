@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"cd api && npm run serve\" \"cd ui && npm run serve\"",
-    "install": "concurrently \"cd api && npm i\" \"cd ui && npm i\""
+    "install": "concurrently \"cd api && npm i\" \"cd ui && npm i\"",
+    "lint": "concurrently \"cd api && npm run lint\" \"cd ui && npm run lint\"",
+    "lintFix": "concurrently \"cd api && npm run lintFix\" \"cd api && npm run lintFix\""
   },
   "author": "",
   "license": "ISC",
