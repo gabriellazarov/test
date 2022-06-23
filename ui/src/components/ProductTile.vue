@@ -17,58 +17,31 @@
           Description
         </v-btn>
         <v-btn outlined rounded text @click="alertDetails"> Details </v-btn>
-        <v-btn outlined rounded text @click="showPlans"> Plans </v-btn>
+        <v-btn outlined rounded text @click="overlay = true"> Plans </v-btn>
       </v-card-actions>
     </v-card>
 
-    <v-overlay :absolute="false" :value="overlay" @click="hideOverlay">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        v-if="isLoading"
-      ></v-progress-circular>
-      <v-card v-else>
-        <v-list-item-title
-          class="text-h2"
-          v-if="!hasPlans"
-          style="padding: 20px"
-        >
-          No plans for this product
-        </v-list-item-title>
-        <v-row no-gutters>
-          <v-col v-for="(value, key, index) in plans[0]" :key="index">
-            <v-card class="pa-2 planData" outlined tile height="150px">
-              <v-card-title>{{ key }}:</v-card-title>
-              <v-card-subtitle>{{ value }}</v-card-subtitle>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row no-gutters>
-          <v-col v-for="(value, key, index) in plans[1]" :key="index">
-            <v-card class="pa-2 planData" outlined tile height="150px">
-              <v-card-title>{{ key }}:</v-card-title>
-              <v-card-subtitle>{{ value }}</v-card-subtitle>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-overlay>
+    <ProductPlans
+      v-if="overlay"
+      :id="product.id"
+      @hideOverlay="overlay = false"
+    />
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import ProductPlans from "./ProductPlans.vue";
 
 export default {
+  components: { ProductPlans },
+
   props: {
     product: Object,
   },
+
   data() {
     return {
       overlay: false,
-      isLoading: false,
-      hasPlans: true,
-      plans: [],
     };
   },
 
@@ -85,37 +58,6 @@ export default {
           .join(" ")}`
       );
     },
-    showPlans() {
-      this.isLoading = true;
-      this.overlay = true;
-      axios
-        .get(`/products/${this.product.id}/plans`)
-        .then((res) => {
-          this.isLoading = false;
-          if (res.data == "") {
-            setTimeout(() => {
-              this.overlay = false;
-            }, 800);
-            this.hasPlans = false;
-            return;
-          }
-          this.plans = res.data;
-        })
-        .catch((e) => console.log(e));
-    },
-    hideOverlay() {
-      this.overlay = false;
-      this.isLoading = false;
-    },
   },
 };
 </script>
-
-<style scoped>
-.planData {
-  overflow: hidden;
-}
-.planData:hover {
-  overflow: auto;
-}
-</style>
