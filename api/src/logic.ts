@@ -35,27 +35,22 @@ export function fetchPlans(id: string) {
   return axios
     .get(`${API}/products/${id}/plans`)
     .then((result) => {
-      const dataMonthly = result.data[0][0];
-      const dataYearly = result.data[0][1];
+      const data = [];
 
-      return [
-        {
-          ID: dataMonthly.id,
-          "Plan Name": dataMonthly.planName,
-          "Billing Cycle": dataMonthly.billingCycle,
-          Name: dataMonthly.name["en-US"],
-          Type: dataMonthly.type["en-US"],
-          Description: dataMonthly.description["en-US"],
-        },
-        {
-          ID: dataYearly.id,
-          "Plan Name": dataYearly.planName,
-          "Billing Cycle": dataYearly.billingCycle,
-          Name: dataYearly.name["en-US"],
-          Type: dataYearly.type["en-US"],
-          Description: dataYearly.description["en-US"],
-        },
-      ];
+      for (const plan of result.data) {
+        for (const cycle of plan) {
+          data.push({
+            ID: cycle.id,
+            "Plan Name": cycle.planName,
+            "Billing Cycle": cycle.billingCycle,
+            Name: cycle.name["en-US"],
+            Type: cycle.type["en-US"],
+            Description: cycle.description["en-US"],
+          });
+        }
+      }
+
+      return data;
     })
     .catch((e) => console.log(e));
 }

@@ -16,16 +16,8 @@
       <v-list-item-title class="text-h2" v-if="!hasPlans" style="padding: 20px">
         No plans for this product
       </v-list-item-title>
-      <v-row no-gutters>
-        <v-col v-for="(value, key, index) in plans[0]" :key="index">
-          <v-card class="pa-2 planData" outlined tile height="150px">
-            <v-card-title>{{ key }}:</v-card-title>
-            <v-card-subtitle>{{ value }}</v-card-subtitle>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row no-gutters>
-        <v-col v-for="(value, key, index) in plans[1]" :key="index">
+      <v-row no-gutters v-for="plan in plans" :key="plan.id">
+        <v-col v-for="(value, key, index) in plan" :key="index">
           <v-card class="pa-2 planData" outlined tile height="150px">
             <v-card-title>{{ key }}:</v-card-title>
             <v-card-subtitle>{{ value }}</v-card-subtitle>
