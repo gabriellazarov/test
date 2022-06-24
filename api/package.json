@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "serve": "nodemon src/app.ts",
-    "lint": "eslint ./",
-    "lintFix": "eslint ./ --fix"
+    "build": "rm -rf build && tsc",
+    "start": "node build/boot.js",
+    "lint": "eslint ./ --ext .ts",
+    "lintFix": "eslint ./ --ext .ts --fix"
   },
   "author": "",
   "license": "ISC",
