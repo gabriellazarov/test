@@ -1,8 +1,5 @@
 /node_modules
 /ui/node_modules
 /api/node_modules
-<<<<<<< HEAD
-=======
 /ui/dist
->>>>>>> cab04f94a4b44c7433606b303fdda3b04f46257a
 /api/build
