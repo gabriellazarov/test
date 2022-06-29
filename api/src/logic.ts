@@ -52,7 +52,10 @@ export function fetchPlans(id: string) {
 
       return data;
     })
-    .catch((e) => console.log(e));
+    .catch((e) => {
+      console.log(e.response.data);
+      throw new Error(e.response.status);
+    });
 }
 export function login(cred: Credentials) {
   return axios

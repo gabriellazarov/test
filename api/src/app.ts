@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { fetchPlans, fetchProducts, login } from "./logic";
-import { PORT } from "./config";
 
 const app = express();
 import cors from "cors";
@@ -14,7 +13,7 @@ app.get("/products", (req: Request, res: Response) => {
       console.log("fetched products");
       res.status(200).json(products);
     })
-    .catch((e) => console.log(e));
+    .catch((err) => console.log(err.message));
 });
 
 app.get("/products/:id/plans", (req: Request, res: Response) => {
@@ -23,7 +22,7 @@ app.get("/products/:id/plans", (req: Request, res: Response) => {
       console.log(`Plan for product ${req.params.id} fetched`);
       res.status(200).json(result);
     })
-    .catch((e) => console.log(e));
+    .catch((err) => res.status(Number(err.message)).send("Error has occured"));
 });
 
 app.post("/login", (req: Request, res: Response) => {
@@ -43,6 +42,4 @@ app.get("/healthcheck", (req: Request, res: Response) => {
   res.status(200).send("API is running...");
 });
 
-app.listen(PORT, () => {
-  console.log(`App is running on port: ${PORT}.`);
-});
+module.exports = app;
