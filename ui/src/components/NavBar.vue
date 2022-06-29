@@ -6,13 +6,20 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn text v-for="item in menuItems" :key="item.title" :to="item.path">
-          <v-icon left dark>{{ item.icon }}</v-icon>
-          {{ item.title }}
-        </v-btn>
+        <template v-if="isLogged">
+          <v-btn
+            text
+            v-for="item in menuItems"
+            :key="item.title"
+            :to="item.path"
+          >
+            <v-icon left dark>{{ item.icon }}</v-icon>
+            {{ item.title }}
+          </v-btn></template
+        >
         <v-btn text to="/auth" @click="logout">
           <v-icon left dark>lock_open</v-icon>
-          {{ this.$store.state.token ? "Log Out" : "Sign In" }}
+          {{ isLogged ? "Log Out" : "Sign In" }}
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
@@ -32,10 +39,15 @@ export default {
   },
   methods: {
     logout() {
-      if (this.$store.state.token) {
+      if (this.isLogged) {
         this.$store.dispatch("logout");
         this.$router.push("/auth");
       }
+    },
+  },
+  computed: {
+    isLogged() {
+      return !!this.$store.state.token;
     },
   },
 };
