@@ -18,9 +18,14 @@ export default {
       products: [],
     };
   },
+  methods: {
+    getProducts() {
+      this.$store.dispatch("getProducts").then((res) => (this.products = res));
+    },
+  },
 
   created() {
-    this.$store.dispatch("getProducts").then((res) => (this.products = res));
+    this.getProducts();
   },
 };
 </script>
