@@ -1,5 +1,5 @@
 import { PORT } from "./config";
-const app = require("./app");
+import app from "./app";
 
 app.listen(PORT, () => {
   console.log(`App is running on port: ${PORT}.`);

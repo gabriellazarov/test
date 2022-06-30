@@ -42,4 +42,5 @@ app.get("/healthcheck", (req: Request, res: Response) => {
   res.status(200).send("API is running...");
 });
 
+export default app;
 module.exports = app;
