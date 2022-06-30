@@ -14,6 +14,7 @@
                 v-model="profile.id"
               ></v-text-field>
               <v-text-field
+                id="email"
                 prepend-icon="mail"
                 name="email"
                 label="Email"
@@ -22,6 +23,7 @@
               ></v-text-field>
               <div class="userName">
                 <v-text-field
+                  id="firstName"
                   prepend-icon="badge"
                   name="firstName"
                   label="First Name"
@@ -29,6 +31,7 @@
                   v-model="profile.firstName"
                 ></v-text-field>
                 <v-text-field
+                  id="lastName"
                   class="lastName"
                   name="lastName"
                   label="Last Name"
@@ -37,13 +40,14 @@
                 ></v-text-field>
               </div>
               <v-text-field
+                id="parents"
                 prepend-icon="code"
                 name="parents"
                 label="Parents"
                 type="text"
                 v-model="profile.parents"
               ></v-text-field>
-              <v-expansion-panels>
+              <v-expansion-panels id="dropdown">
                 <v-expansion-panel>
                   <v-expansion-panel-header>
                     Preferences
@@ -77,9 +81,16 @@ export default {
       preferences: {},
     };
   },
+  methods: {
+    getProfile() {
+      this.profile = JSON.parse(this.$store.state.profile);
+      this.preferences = this.profile.preferences.global;
+    },
+  },
   created() {
-    this.profile = JSON.parse(this.$store.state.profile);
-    this.preferences = this.profile.preferences.global;
+    this.getProfile();
+    console.log(this.profile);
+    console.log(this.preferences);
   },
 };
 </script>

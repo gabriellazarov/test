@@ -13,7 +13,7 @@ describe("ProductList.vue", () => {
     vuetify = new Vuetify();
   });
 
-  const mountFunction = (options) => {
+  const mountFunction = () => {
     return mount(ProductList, {
       localVue,
       vuetify,
@@ -70,5 +70,16 @@ describe("ProductList.vue", () => {
     await btns.at(2).trigger("click");
 
     expect(alertsCalled).toBe(2);
+  });
+
+  it("'plans' button shows overlay", async () => {
+    const wrapper = mountFunction();
+
+    const btns = wrapper.find("li").findAll("button");
+
+    await btns.at(2).trigger("click");
+
+
+    expect(wrapper.find("div.v-overlay__content").exists()).toBe(true);
   });
 });
