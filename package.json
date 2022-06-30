@@ -9,7 +9,8 @@
     "build": "concurrently \"cd api && npm run build\" \"cd ui && npm run build\"",
     "start": "concurrently \"cd api && npm run start\" \"cd ui && npm run start\"",
     "lint": "concurrently \"cd api && npm run lint\" \"cd ui && npm run lint\"",
-    "lintFix": "concurrently \"cd api && npm run lintFix\" \"cd ui && npm run lintFix\""
+    "lintFix": "concurrently \"cd api && npm run lintFix\" \"cd ui && npm run lintFix\"",
+    "test": "concurrently \"cd api && npm run test\" \"cd ui && npm run test\""
   },
   "author": "",
   "license": "ISC",
